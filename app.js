@@ -5,6 +5,7 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var mongoose = require("mongoose");
 var jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 var app = express();
 app.use(express.static("public"));
@@ -12,7 +13,7 @@ app.set("view engine", "ejs");
 
 // connect to local mongo server
 mongoose.connect(
-  "mongodb://localhost/magz-api",
+  process.env.MONGOURL || "mongodb://localhost/magz-api",
   { useNewUrlParser: true, useUnifiedTopology: true },
   err => {
     console.log("Connected", err ? false : true);
