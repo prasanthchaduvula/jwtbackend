@@ -17,7 +17,17 @@ var userSchema = new Schema(
     password: {
       type: String,
       required: true
-    }
+    },
+    picture: {
+      type: String,
+      required: true
+    },
+    articlesId: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Article"
+      }
+    ]
   },
   { timestamps: true }
 );

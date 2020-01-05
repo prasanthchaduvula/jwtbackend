@@ -6,7 +6,7 @@ var jwt = require("jsonwebtoken");
 // user signup
 router.post("/signup", (req, res) => {
   User.create(req.body, (err, user) => {
-    if (err) return res.json({ err });
+    if (err) return res.json({ success: false });
     res.json({ success: true, message: "registraion successful" });
   });
 });
@@ -18,14 +18,14 @@ router.post("/login", (req, res) => {
     if (err) return res.json({ err });
     if (!user) return res.json("valid email");
     console.log(user);
-    if (!user.verifyPassword(password)) return res.redirect("/users/login");
+    if (!user.verifyPassword(password)) return res.json({ success: false });
     // jwt
     jwt.sign(
       { username: user.username, userId: user._id, useremail: user.email },
       "thisissecret",
       (err, token) => {
         // send the token to client
-        res.json({ token, success: true });
+        res.json({ token, success: true, username: user.username });
       }
     );
   });
