@@ -13,7 +13,7 @@ app.set("view engine", "ejs");
 
 // connect to local mongo server
 mongoose.connect(
-  process.env.MONGOURL || "mongodb://localhost/magz-api",
+  process.env.MONGOURL,
   { useNewUrlParser: true, useUnifiedTopology: true },
   err => {
     console.log("Connected", err ? false : true);
